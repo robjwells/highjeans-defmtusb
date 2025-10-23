@@ -1,0 +1,52 @@
+[package]
+edition = "2024"
+name = "highjeans"
+rust-version = "1.88"
+version = "0.1.0"
+
+[[bin]]
+name = "highjeans"
+path = "./src/bin/main.rs"
+
+[dependencies]
+esp-hal = { version = "=1.0.0-rc.1", features = [
+    "defmt",
+    "esp32s2",
+    "unstable",
+] }
+
+esp-rtos = { version = "0.1.1", features = ["defmt", "embassy", "esp32s2"] }
+
+defmt = "1.0.1"
+esp-bootloader-esp-idf = { version = "0.3.0", features = ["esp32s2"] }
+
+embassy-executor = { version = "0.9.0", features = ["defmt"] }
+embassy-time = { version = "0.5.0", features = ["defmt"] }
+esp-backtrace = { version = "0.18.0", features = [
+    "defmt",
+    "esp32s2",
+    "panic-handler",
+] }
+
+critical-section = "1.2.0"
+static_cell = "2.1.1"
+
+defmtusb = { path = "/Users/robjwells/projects/rust/embedded/defmtusb/", features = [
+    "buffersize-64",
+], default-features = false }
+embassy-usb = "0.5"
+
+
+[profile.dev]
+# Rust debug is too slow.
+# For debug builds always builds with some optimization
+opt-level = "s"
+
+[profile.release]
+codegen-units = 1        # LLVM can perform better optimizations using a single thread
+debug = 2
+debug-assertions = false
+incremental = false
+lto = 'fat'
+opt-level = 's'
+overflow-checks = false
