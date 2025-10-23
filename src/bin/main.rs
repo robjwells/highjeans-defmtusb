@@ -1,4 +1,3 @@
-#![allow(dead_code, unused)]
 #![no_std]
 #![no_main]
 #![deny(
@@ -17,7 +16,6 @@ use esp_hal::peripherals::{GPIO19, GPIO20, USB0};
 use esp_hal::time::Instant;
 use esp_hal::timer::timg::TimerGroup;
 
-use defmtusb::run;
 use static_cell::ConstStaticCell;
 
 // This creates a default app-descriptor required by the esp-idf bootloader.
